@@ -19,7 +19,16 @@ grad = zeros(size(theta));
 
 
 
+predictions = sigmoid(X * theta);
+one_side = (-y)' * log(predictions);
+zero_side = (1 - y)' * log(1 - predictions);
+reg = (lambda / (2 * m)) * theta.^2;
+reg(1, 1) = 0;
+J = (1 / m) * (one_side - zero_side) + sum(reg);
 
+reg = (lambda / m) * theta;
+reg(1, 1) = 0;
+grad = (1 / m) * X' * (predictions - y) + reg;
 
 
 % =============================================================
