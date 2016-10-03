@@ -67,12 +67,13 @@ for i = 1:size(y, 1)
     y_matrix(i, y(i, 1)) = 1;
 end
 
+fprintf('hi');
 X = [ones(m, 1) X];
-z2 = X * Theta1';
-a2 = sigmoid(z2);
-a2 = [ones(size(a2, 1), 1) a2];
-z3 = a2 * Theta2';
-a3 = sigmoid(z3);
+%z2 = X * Theta1';
+%a2 = sigmoid(z2);
+%a2 = [ones(size(a2, 1), 1) a2];
+%z3 = a2 * Theta2';
+%a3 = sigmoid(z3);
 
 for i = 1:m
    this_y = y_matrix(i, :);
@@ -86,11 +87,14 @@ for i = 1:m
    J = J + (one_side - zero_side);
    
    del_3 = this_a3 - this_y;
-   del_2 = (del_3 * Theta2);
-   del_2 = del_2(2:end)  .* sigmoidGradient(this_z2);
-
-   Theta1_grad = Theta1_grad + (del_2' * this_a1);
-   Theta2_grad = Theta2_grad + (del_3' * this_a2);
+   del_2 = (Theta2' * del_3) .* sigmoidGradient(this_z2);
+   del_2 = del_2(2:end);
+   
+   fprintf('Theta1_grad => rows: %i  cols: %i', size(Theta1_grad, 1), size(Theta1_grad, 2));
+   fprintf('del2 => rows: %i  cols: %i', size(del_2, 1), size(del_2, 2));
+   fprintf('this_a1 => rows: %i  cols: %i', size(this_a1, 1), size(this_a1, 2));
+   %Theta1_grad = Theta1_grad + (del_2 * this_a1');
+   %Theta2_grad = Theta2_grad + (del_3 * this_a2');
 end
 
 Theta1_grad = Theta1_grad / m;

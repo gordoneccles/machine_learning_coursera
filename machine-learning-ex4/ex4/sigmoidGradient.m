@@ -12,17 +12,15 @@ g = zeros(size(z));
 % Instructions: Compute the gradient of the sigmoid function evaluated at
 %               each value of z (z can be a matrix, vector or scalar).
 
+function y = sigGrad(x)
+    y = (1 / (1 + exp(-x))) * (1 - (1 / (1 + exp(-x))));
+end
 
-
-
-
-
-
-
-
-
-
-
+if isa(z, 'scalar') == 1
+    g = sigGrad(z);
+else
+    g = arrayfun(@sigGrad, z);
+end
 
 
 % =============================================================
