@@ -93,11 +93,14 @@ for i = 1:m
    Theta2_grad = Theta2_grad + (del_3' * this_a2);
 end
 
-Theta1_grad = Theta1_grad / m;
-Theta2_grad = Theta2_grad / m;
+no_bias_theta1 = Theta1(:, 2:end);
+no_bias_theta1 = [zeros(size(no_bias_theta1, 1), 1) no_bias_theta1];
+no_bias_theta2 = Theta2(:, 2:end);
+no_bias_theta2 = [zeros(size(no_bias_theta2, 1), 1) no_bias_theta2];
 
-no_bias_theta1 = Theta1(:, 2:size(Theta1, 2));
-no_bias_theta2 = Theta2(:, 2:size(Theta2, 2));
+Theta1_grad = Theta1_grad / m + (lambda / m)*no_bias_theta1;
+Theta2_grad = Theta2_grad / m + (lambda / m)*no_bias_theta2;
+
 reg = sum(sum(no_bias_theta1.^2)) + sum(sum(no_bias_theta2.^2));
 reg = (lambda / (2 * m)) * reg;
 
