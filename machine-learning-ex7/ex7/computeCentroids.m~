@@ -28,15 +28,12 @@ centroids = zeros(K, n);
 
 
 for i = 1:K
-    these_idxs = find(idx == i);
+    these_idxs = find(idxs == i);
     idxs_count = size(these_idxs, 1);
-    sum = zeros(1, n);
-    
+    sum = 0
     for j = 1:idxs_count
-        sum = sum + X(these_idxs(j), :);
+        sum = sum + 
     end
-    
-    centroids(i, :) = sum ./ idxs_count;
 end
 
 
