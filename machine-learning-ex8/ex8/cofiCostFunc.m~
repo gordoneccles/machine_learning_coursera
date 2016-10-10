@@ -45,16 +45,13 @@ Theta_grad = zeros(size(Theta));
 predictions = X * Theta';
 dif = (predictions - Y) .* R;
 
-Theta_grad = (dif' * X) + (lambda * Theta);
-X_grad = (dif * Theta) + (lambda * X);
+Theta_grad = dif' * X;
+X_grad = dif * Theta;
 
 dif = dif .^ 2;
 
-Theta_squared = Theta .^ 2;
-X_squared = X .^ 2;
-
-reg = lambda * (sum(Theta_squared(:)) + sum(X_squared(:)));
-J = (sum(dif(:)) + reg) / 2;
+Theta
+J = sum(dif(:)) / 2;
 
 
 
